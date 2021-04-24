@@ -70,7 +70,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Domicilio. Calle, Numero y Departamento"
+                android:hint="Domicilio. Calle. Numero y Departamento"
                 android:inputType="textPersonName"
                 android:textColorHighlight="#02A899"
                 android:textColorHint="#009688" />
