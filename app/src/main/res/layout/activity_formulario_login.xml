@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#40009688"
+    tools:context=".FormularioLogin">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-37dp"
+        tools:layout_editor_absoluteY="310dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/formularioTurno"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:gravity="center"
+                android:text="Ingrese sus datos personales"
+                android:textColor="#009688"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/duenologin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Nombre y Apellido del dueño"
+                android:inputType="textPersonName"
+                android:textColorHint="#02A899" />
+
+            <EditText
+                android:id="@+id/usuariologin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Usuario. Mínimo de 4 letras"
+                android:inputType="textPersonName"
+                android:textColorHint="#02A899" />
+
+            <EditText
+                android:id="@+id/contrasenalogin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Contraseña. De 6 a 10 números"
+                android:inputType="textPersonName"
+                android:textColorHint="#02A899" />
+
+            <EditText
+                android:id="@+id/domiciliologin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Domicilio. Calle, Numero y Departamento"
+                android:inputType="textPersonName"
+                android:textColorHighlight="#02A899"
+                android:textColorHint="#009688" />
+
+            <EditText
+                android:id="@+id/localidadlogin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp"
+                android:ems="10"
+                android:hint="Localidad"
+                android:inputType="textPersonName"
+                android:textColorHint="#02A899" />
+
+            <EditText
+                android:id="@+id/celularlogin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Celular, mínimo 10 dígitos"
+                android:inputType="textPersonName"
+                android:textColorHighlight="#02A899"
+                android:textColorHint="#009688" />
+
+            <EditText
+                android:id="@+id/maillogin"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
+                android:ems="10"
+                android:hint="Mail"
+                android:inputType="textPersonName"
+                android:textColorHint="#02A899" />
+
+            <Button
+                android:id="@+id/GuardarLogin"
+                android:layout_width="232dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="GUARDAR" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
