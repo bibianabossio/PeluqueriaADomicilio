@@ -112,14 +112,14 @@ Button guardar;
 
 
         String mensaje= formulario.getText().toString() + horario.getText().toString();
-        //sendSMS(mensaje);//al peluquero por sms
+        sendSMS(mensaje);//al peluquero por sms
         Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
         startActivity(intento3); //con esto va a turno
 
-       // finish();
+        finish();
     }
     //para cuando pruebo con el celular
-   /* protected void sendSMS( String mensaje) {
+    protected void sendSMS( String mensaje) {
         Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 
         smsIntent.setData(Uri.parse("smsto:"));
@@ -129,9 +129,9 @@ Button guardar;
 
 
             startActivity(smsIntent);
-           // finish();
+            finish();
 
-        }*/
+        }
 
 }
 

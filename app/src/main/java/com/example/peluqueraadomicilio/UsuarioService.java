@@ -43,7 +43,7 @@ public class UsuarioService {
         Usuario usuario = new Usuario();
         usuario.setId(cursor.getInt(0));
         usuario.setUsuario(cursor.getString(1));
-        usuario.setContrasena(cursor.getInt(2));
+        usuario.setContrasena(cursor.getString(2));
         usuario.setNombre_dueno(cursor.getString(3));
         usuario.setMail(cursor.getString(4));
         usuario.setDomicilio(cursor.getString(5));

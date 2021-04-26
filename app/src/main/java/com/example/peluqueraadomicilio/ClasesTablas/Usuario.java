@@ -3,14 +3,14 @@ package com.example.peluqueraadomicilio.ClasesTablas;
 public class Usuario {
     private Integer id;
     private String usuario;
-    private Integer contrasena;
+    private String contrasena;
     private String nombre_dueno;
     private String mail;
     private String domicilio;
     private String localidad;
     private String celular;
 
-    public Usuario(Integer id,  String usuario, Integer contrasena, String nombre_dueno, String mail, String domicilio, String localidad, String celular) {
+    public Usuario(Integer id,  String usuario, String contrasena, String nombre_dueno, String mail, String domicilio, String localidad, String celular) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -63,11 +63,11 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public Integer getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(Integer contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
