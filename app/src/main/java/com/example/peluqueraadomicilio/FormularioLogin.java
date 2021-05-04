@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peluqueraadomicilio.Utilidades.Utilidades;
@@ -21,14 +22,20 @@ import java.util.regex.Pattern;
 public class FormularioLogin extends AppCompatActivity {
     //variables
     EditText usuario;
+    TextView errorUs;
     EditText contrasena;
+    TextView errorCo;
     EditText dueno;
+    TextView errorDu;
     EditText mail;
+    TextView errorMa;
     EditText domicilio;
     EditText localidad;
     EditText celular;
+    TextView errorCe;
     Button guardar;
     String error;
+
 
 
     @Override
@@ -36,18 +43,28 @@ public class FormularioLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_login);
         dueno = (EditText) findViewById(R.id.duenologin);
+        errorDu = (TextView)  findViewById (R.id.errorDueno);
         usuario = (EditText) findViewById(R.id.usuariologin);
+        errorUs= (TextView)  findViewById (R.id.errorUsuario);
         contrasena = (EditText) findViewById(R.id.contrasenalogin);
+        errorCo= (TextView)  findViewById (R.id.errorContrasena);
         mail = (EditText) findViewById(R.id.maillogin);
+        errorMa= (TextView)  findViewById (R.id.errorMail);
         domicilio = (EditText) findViewById(R.id.domiciliologin);
         localidad = (EditText) findViewById(R.id.localidadlogin);
         celular = (EditText) findViewById(R.id.celularlogin);
+        errorCe= (TextView)  findViewById (R.id.errorCelular);
         guardar = (Button) findViewById(R.id.GuardarLogin);
         guardar.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
             @Override
             public void onClick(View v) {
+                errorDu.setVisibility(View.GONE);
+                errorUs.setVisibility(View.GONE);
+                errorCo.setVisibility(View.GONE);
+                errorMa.setVisibility(View.GONE);
+                errorCe.setVisibility(View.GONE);
                 if (validacion()) {
-                    guardar_login();
+                  //  guardar_login();
                 } else {
                     Snackbar.make(findViewById(android.R.id.content), " " + error,
                             Snackbar.LENGTH_LONG)
@@ -76,14 +93,14 @@ public class FormularioLogin extends AppCompatActivity {
             }
         }
         if (count > 0) {
-            error = "Usuario ya esta usado";
+            errorUs.setVisibility(View.VISIBLE);
             return false;
 
         } else {
             return true;
         }
         }else {
-            error = "Usuario debe contener 4 letras como mínimo";
+            errorUs.setVisibility(View.VISIBLE);
             return false;
         }
     }
@@ -91,12 +108,20 @@ public class FormularioLogin extends AppCompatActivity {
 
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;//LIBRERIA QUE VALIDA LOS MAILS
+        if (!pattern.matcher(email).matches()){
+            
+            error= "La Contraseña debe tener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 número y 1 signo";
+        }
         return pattern.matcher(email).matches();
     }
 
 
     private boolean validarContrasena (String contrasena){
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!.])(?=\\S+$).{6,}$");
+        if (!contrasena.matches(String.valueOf(pattern))){
+            error= "El mail debe respetar formato con @ y .com";
+        }
+
         return contrasena.matches(String.valueOf(pattern));
     }
 
@@ -111,27 +136,42 @@ public class FormularioLogin extends AppCompatActivity {
         String loc = localidad.getText().toString();
         String cel = celular.getText().toString();
 
-        if (!usu.equals("") && !contra.equals("") && !duen.equals("") && !ml.equals("") && !dom.equals("") && !loc.equals("") && !cel.equals("")) {
-            if (validarUsuario(usu)) {
-                if (validarContrasena(contra)&& validarEmail(ml) && cel.length()>9) {
-                    return true;
-                } else {
-                    error = "Datos invalidos";
-                    return false;
-                }
+        if (!duen.equals("")) {
+          if (!usu.equals("")&& validarUsuario(usu)) {
+              if (!contra.equals("")&& validarUsuario(contra)) {
+                  if (!ml.equals("")&& validarUsuario(ml)) {
+                      if (!cel.equals("")&& validarUsuario(cel)){
 
-            } else {
+                      }else{
+                          errorCe.setVisibility(View.VISIBLE);
+                          return false;
+                      }
 
-                return false;
-            }
+                  }else{
+                      errorMa.setVisibility(View.VISIBLE);
+                      return false;
+                  }
+
+              }else{
+                  errorCo.setVisibility(View.VISIBLE);
+                  return false;
+
+              }
+
+          }else{
+              errorUs.setVisibility(View.VISIBLE);
+              return false;
+          }
+
         } else {
-            error = "Completar todos los campos";
+            errorDu.setVisibility(View.VISIBLE);
             return false;
         }
+     return true;
     }
 
 
-    private void guardar_login() {
+   /* private void guardar_login() {
         ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
         SQLiteDatabase db = conn.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -152,7 +192,7 @@ public class FormularioLogin extends AppCompatActivity {
         finish();
 
 
-    }
+    }*/
 
 
 }

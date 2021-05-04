@@ -56,7 +56,7 @@ Button registro;
                             startActivity(intento);
                         } else {
 
-                            Toast.makeText(MainActivity.this, "ERROR: La contraseña no es valida:\nDebe contener al menos: 8 caracteres, 1 minúscula, 1 mayúscula, 1 numero y 1 signo", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "ERROR: La contraseña no es valida:\nDebe contener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 numero y 1 signo", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         Toast.makeText(MainActivity.this, "ERROR: Datos Incorrectos", Toast.LENGTH_SHORT).show();
