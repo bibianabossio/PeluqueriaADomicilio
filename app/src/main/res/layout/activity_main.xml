@@ -50,12 +50,12 @@
         android:hint="Usuario"
         android:inputType="textPersonName"
         android:textColorHighlight="#103935"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/usuMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/usuMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -79,12 +79,12 @@
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:textColorHighlight="#1F615B"
-        app:layout_constraintBottom_toTopOf="@+id/contraIncorrecta"
+        app:layout_constraintBottom_toTopOf="@+id/contraMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/contraIncorrecta"
+        android:id="@+id/contraMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"

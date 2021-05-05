@@ -58,15 +58,12 @@ public class FormularioLogin extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
             @Override
             public void onClick(View v) {
-                errorDu.setVisibility(View.GONE);
-                errorUs.setVisibility(View.GONE);
-                errorCo.setVisibility(View.GONE);
-                errorMa.setVisibility(View.GONE);
-                errorCe.setVisibility(View.GONE);
+                limpiarCampos();
                 if (validacion()) {
-                  //  guardar_login();
+                     guardar_login();
+
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), " " + error,
+                    Snackbar.make(findViewById(android.R.id.content), "Faltan completar campos ",
                             Snackbar.LENGTH_LONG)
                             .setDuration(3000)
                             .show();
@@ -78,50 +75,63 @@ public class FormularioLogin extends AppCompatActivity {
 
 
     }
+    public void limpiarCampos(){
+        errorDu.setVisibility(View.GONE);
+        errorUs.setVisibility(View.GONE);
+        errorCo.setVisibility(View.GONE);
+        errorMa.setVisibility(View.GONE);
+        errorCe.setVisibility(View.GONE);
+
+    }
 
     private boolean validarUsuario(String usu) {
         String dbUsuario;
         if (usu.length()>3){
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
-        SQLiteDatabase db = conn.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM  usuarios", null);
-        int count = 0;
-        while (cursor.moveToNext()) {
-            dbUsuario = cursor.getString(1);
-            if (usu.equals(dbUsuario)) {
-                count++;
+            ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
+            SQLiteDatabase db = conn.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM  usuarios", null);
+            int count = 0;
+            while (cursor.moveToNext()) {
+                dbUsuario = cursor.getString(1);
+                if (usu.equals(dbUsuario)) {
+                    count++;
+                }
             }
-        }
-        if (count > 0) {
-            errorUs.setVisibility(View.VISIBLE);
-            return false;
+            if (count > 0) {
+                errorUs.setText("Usuario existente");
+                errorUs.setVisibility(View.VISIBLE);
+                return false;
 
-        } else {
-            return true;
-        }
+            } else {
+                return true;
+            }
         }else {
+            errorUs.setText("El usuario debe contener al menos 4 digitos");
             errorUs.setVisibility(View.VISIBLE);
             return false;
         }
     }
+
 
 
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;//LIBRERIA QUE VALIDA LOS MAILS
         if (!pattern.matcher(email).matches()){
-            
-            error= "La Contraseña debe tener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 número y 1 signo";
+
+            error= "El mail debe respetar formato con @ y .com";
+
         }
         return pattern.matcher(email).matches();
     }
 
 
-    private boolean validarContrasena (String contrasena){
+    private boolean validarContrasena (String contrasena){//controla que la estructura de mail tenga los campos necesarios
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!.])(?=\\S+$).{6,}$");
         if (!contrasena.matches(String.valueOf(pattern))){
-            error= "El mail debe respetar formato con @ y .com";
-        }
+            errorCo.setText("La Contraseña debe tener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 número y 1 signo");
+            errorCo.setVisibility(View.VISIBLE);
 
+        }
         return contrasena.matches(String.valueOf(pattern));
     }
 
@@ -135,67 +145,106 @@ public class FormularioLogin extends AppCompatActivity {
         String dom = domicilio.getText().toString();
         String loc = localidad.getText().toString();
         String cel = celular.getText().toString();
+        validarTotales();
 
         if (!duen.equals("")) {
-          if (!usu.equals("")&& validarUsuario(usu)) {
-              if (!contra.equals("")&& validarUsuario(contra)) {
-                  if (!ml.equals("")&& validarUsuario(ml)) {
-                      if (!cel.equals("")&& validarUsuario(cel)){
+            if (validarUsuario(usu)) {
+                if (!contra.equals("")&& validarContrasena(contra)) {
+                    if (!ml.equals("")&& validarEmail(ml)) {
+                        if (!cel.equals("")&& cel.length()>=10){
 
-                      }else{
-                          errorCe.setVisibility(View.VISIBLE);
-                          return false;
-                      }
+                        }else{
+                            errorCe.setText("El campo celular debe contener al menos 10 numeros");
+                            errorCe.setVisibility(View.VISIBLE);
+                            return false;
+                        }
 
-                  }else{
-                      errorMa.setVisibility(View.VISIBLE);
-                      return false;
-                  }
+                    }else{
+                        errorMa.setVisibility(View.VISIBLE);
+                        return false;
+                    }
 
-              }else{
-                  errorCo.setVisibility(View.VISIBLE);
-                  return false;
+                }else{
 
-              }
+                    return false;
 
-          }else{
-              errorUs.setVisibility(View.VISIBLE);
-              return false;
-          }
+                }
+
+            }else{
+                return false;
+            }
 
         } else {
             errorDu.setVisibility(View.VISIBLE);
             return false;
         }
-     return true;
+        return true;
+    }
+    public void validarTotales(){
+        String duen = dueno.getText().toString();
+        String usu = usuario.getText().toString();
+        String contra = contrasena.getText().toString();
+        String ml = mail.getText().toString();
+        String dom = domicilio.getText().toString();
+        String loc = localidad.getText().toString();
+        String cel = celular.getText().toString();
+        //aca consultamos con todos los campos no esten vacios
+        if (duen.equals("")){
+            errorDu.setText("El campo Nombre y Apellido no puede estar vacío");
+            errorDu.setVisibility(View.VISIBLE);
+        }
+        if (usu.equals("")){
+            errorUs.setText("El Usuario no puede estar vacío");
+            errorUs.setVisibility(View.VISIBLE);
+        }
+        if (contra.equals("")){
+            errorCo.setText("La contrasenia  no puede estar vacío");
+            errorCo.setVisibility(View.VISIBLE);
+        }
+        if (ml.equals("")){
+            errorMa.setText("El campo mail  no puede estar vacío");
+            errorMa.setVisibility(View.VISIBLE);
+        }
+        if (cel.equals("")){
+            errorCe.setText("El campo celular no puede estar vacío");
+            errorCe.setVisibility(View.VISIBLE);
+        }
+
+
+
+
+
+
+
     }
 
 
-   /* private void guardar_login() {
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
-        SQLiteDatabase db = conn.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("usuario", usuario.getText().toString());//el valor que se asigne se guarda en la bd
-        values.put("contrasena", contrasena.getText().toString());
-        values.put("nombre_dueno", dueno.getText().toString());
-        values.put("mail", mail.getText().toString());
-        values.put("domicilio", domicilio.getText().toString());
-        values.put("localidad", localidad.getText().toString());
-        values.put("celular", celular.getText().toString());
-        Long idresultante = db.insert("usuarios", "id", values);
-        Utilidades.usaurioLog = (Integer) idresultante.intValue();
-        System.out.println("el valor de idresultante es:" + Utilidades.usaurioLog);
-        Toast.makeText(this, "Usuario Ingresado" + idresultante, Toast.LENGTH_LONG).show();
-        Intent intento2 = new Intent(FormularioLogin.this, FormularioRegistro.class); // configuro para que vaya a la otra pantalla
-        startActivity(intento2);//con esto va a turno
+  private void guardar_login() {
+       ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
+       SQLiteDatabase db = conn.getWritableDatabase();
+       ContentValues values = new ContentValues();
+       values.put("usuario", usuario.getText().toString());//el valor que se asigne se guarda en la bd
+       values.put("contrasena", contrasena.getText().toString());
+       values.put("nombre_dueno", dueno.getText().toString());
+       values.put("mail", mail.getText().toString());
+       values.put("domicilio", domicilio.getText().toString());
+       values.put("localidad", localidad.getText().toString());
+       values.put("celular", celular.getText().toString());
+       Long idresultante = db.insert("usuarios", "id", values);
+       Utilidades.usaurioLog = (Integer) idresultante.intValue();
+       System.out.println("el valor de idresultante es:" + Utilidades.usaurioLog);
+       Toast.makeText(this, "Usuario Ingresado" + idresultante, Toast.LENGTH_LONG).show();
+       Intent intento2 = new Intent(FormularioLogin.this, FormularioRegistro.class); // configuro para que vaya a la otra pantalla
+       startActivity(intento2);//con esto va a turno
 
-        finish();
+       finish();
 
 
-    }*/
+   }
 
 
 }
+
 
 
 
