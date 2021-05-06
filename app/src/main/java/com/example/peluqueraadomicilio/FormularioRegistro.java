@@ -1,14 +1,20 @@
+
 package com.example.peluqueraadomicilio;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +24,9 @@ import android.widget.Toast;
 import com.example.peluqueraadomicilio.Utilidades.Utilidades;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
+import java.io.IOException;
+
 public class FormularioRegistro extends AppCompatActivity {
     //variables
     EditText nombreMascota;
@@ -26,7 +35,11 @@ public class FormularioRegistro extends AppCompatActivity {
     Button guardar;
     ImageView fotoPerro;
     Button galeria;
-    String direccionUriImg;
+    Button camara;
+    private Uri imagenUri;//uri es un formato para almacenar las fotos.
+    int foto;
+    private Bitmap imgToStorage;//otra forma de almacenar las fotos.
+    String direccionUriImg;//almacena la dire donde guardo la imagen
     String error;
 
     @Override
@@ -39,12 +52,14 @@ public class FormularioRegistro extends AppCompatActivity {
         guardar = (Button) findViewById(R.id.guardarbtn);
         fotoPerro = (ImageView) findViewById(R.id.foto_perro);
         galeria = (Button) findViewById(R.id.galeriabtn);
+        camara = (Button) findViewById(R.id.camarabtn);
+
         guardar.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
             @Override
             public void onClick(View v) {
                 if (validarMascota()){
-                guardarMascota();
-            } else {
+                    guardarMascota();
+                } else {
                     Snackbar.make(findViewById(android.R.id.content), " " + error,
                             Snackbar.LENGTH_LONG)
                             .setDuration(3000)
@@ -63,6 +78,14 @@ public class FormularioRegistro extends AppCompatActivity {
 
         });
 
+        camara.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
+            @Override
+            public void onClick(View v) {
+                AbrirCamara();
+            }
+
+        });
+
     }
     private boolean validarMascota() {
         String name = nombreMascota.getText().toString();
@@ -70,11 +93,8 @@ public class FormularioRegistro extends AppCompatActivity {
         String kilo = kg.getText().toString();
 
         if (!name.equals("") && !raze.equals("") && !kilo.equals("")) {
-
-
-                    return true;
-
-            } else {
+            return true;
+        } else {
             error = "Completar todos los campos";
             return false;
         }
@@ -84,19 +104,51 @@ public class FormularioRegistro extends AppCompatActivity {
     private void guardarGaleria() {
         Intent intento = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intento.setType("image/");
-        startActivityForResult(Intent.createChooser(intento, "Seleccionar imagen ;)"), 10);
+        foto =10;
+        startActivityForResult(Intent.createChooser(intento, "Seleccionar imagen ;)"), foto);
 
+    }
+
+
+//funcion abrir camara para sacar las fotos
+    public void AbrirCamara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//abre la camara
+        File imagenArchivo = null;
+        try {
+            imagenArchivo = CrearImagen();// intento asignar los datos de la foto
+        } catch (IOException ex) {
+            Log.e("Error", ex.toString());// si no se genero el archivo por un error que me imprima
+        }
+        if (imagenArchivo != null) {//si tiene foto sacada, la guarda
+            imagenUri = FileProvider.getUriForFile(this, "com.example.peluqueraadomicilio.fileprovider", imagenArchivo);
+            foto =100;//numero que se asigna para la camara
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUri);
+            startActivityForResult(intent, foto);
+
+        }
+    }
+    //funcion crear imagen
+    private File CrearImagen() throws IOException {
+        String nombreImagen = "Foto_";
+        File directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imagen = File.createTempFile(nombreImagen, ".jpg", directorio);//concatena el nombre de la foto, donde se guarda y el formato
+        direccionUriImg = imagen.getAbsolutePath();//asignamos a la variable la direccion adonde esta la foto guardada
+        return imagen;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && foto ==10) { //cuando uso la galeria vale 10, cuando es camara vale 100
             Uri path = data.getData();
             direccionUriImg = path.toString();
             fotoPerro.setImageURI(path);
             Toast.makeText(this, "la imagen ya esta subida :" + path, Toast.LENGTH_LONG).show();
             //   textoET.setText(path.toString());
+        }else if (resultCode == RESULT_OK && foto ==100){
+            File imagenfile=new File(direccionUriImg);
+            imgToStorage=BitmapFactory.decodeFile(imagenfile.getAbsolutePath());
+            fotoPerro.setImageBitmap(imgToStorage);
         }
     }
 
@@ -121,4 +173,5 @@ public class FormularioRegistro extends AppCompatActivity {
 
     }
 }
+
 
