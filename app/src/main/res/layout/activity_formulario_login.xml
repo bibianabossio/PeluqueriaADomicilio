@@ -38,6 +38,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Nombre y Apellido del dueño"
+                android:maxLength="30"
                 android:inputType="textPersonName"
                 android:textColorHint="#02A899" />
 
@@ -58,6 +59,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Usuario. Mínimo de 4 letras"
+                android:maxLength="10"
                 android:inputType="textPersonName"
                 android:textColorHint="#02A899" />
 
@@ -78,6 +80,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Contraseña: AAaa11() "
+                android:maxLength="10"
                 android:inputType="textPersonName"
                 android:textColorHint="#02A899" />
 
@@ -98,6 +101,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Domicilio. Calle. Numero y Departamento"
+                android:maxLength="30"
                 android:inputType="textPersonName"
                 android:textColorHighlight="#02A899"
                 android:textColorHint="#009688" />
@@ -111,7 +115,7 @@
                 android:ems="10"
                 android:hint="Localidad"
                 android:inputType="textPersonName"
-                android:maxLength="30"
+                android:maxLength="20"
                 android:textColorHint="#02A899" />
 
             <EditText
@@ -153,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="El mail debe respetar formato con @ y .com"
+                android:maxLength="30"
                 android:textColor="#EF1B1B"
                 android:visibility="gone" />
 
