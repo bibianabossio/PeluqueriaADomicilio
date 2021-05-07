@@ -8,6 +8,38 @@
     tools:context=".FormularioTurno">
 
     <TextView
+        android:id="@+id/cancelacion"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="40dp"
+        android:background="#009688"
+        android:gravity="center"
+        android:shadowColor="#F6FAF9"
+        android:text="TURNO CONFIRMADO"
+        android:textColor="#F6FAF9"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/confirmacion"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/guardabtn4"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="12dp"
+        android:text="CONFIRMAR"
+        app:layout_constraintBottom_toTopOf="@+id/confirmacion"
+        app:layout_constraintEnd_toStartOf="@+id/borrarbtn"
+        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="390dp"
         android:layout_height="43dp"
@@ -37,8 +69,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="141dp"
+        android:layout_height="72dp"
         android:layout_marginTop="30dp"
         android:onClick="abrirCalendario"
         android:text="CALENDARIO"
@@ -64,8 +96,8 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="73dp"
         android:layout_marginTop="30dp"
         android:onClick="abrirHora"
         android:text="HORARIO"
@@ -76,24 +108,46 @@
 
 
     <Button
-        android:id="@+id/guardabtn"
-        android:layout_width="134dp"
-        android:layout_height="84dp"
+        android:id="@+id/borrarbtn"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:layout_marginTop="12dp"
-        android:text="CONFIRMAR"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:text="CANCELAR"
+        app:layout_constraintBottom_toBottomOf="@+id/guardabtn4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toTopOf="@+id/guardabtn4" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guardabtn"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
         app:srcCompat="@drawable/pregunta" />
+
+    <TextView
+        android:id="@+id/confirmacion"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginBottom="40dp"
+        android:background="#8A0722"
+        android:gravity="center"
+        android:shadowColor="#F6FAF9"
+        android:text="TURNO CANCELADO"
+        android:textColor="#F6FAF9"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/cancelacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cancelacion"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

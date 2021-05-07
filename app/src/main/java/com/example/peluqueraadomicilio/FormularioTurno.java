@@ -4,17 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +37,10 @@ Button calendario;
 TextView horario;
 Button reloj;
 Button guardar;
+TextView confirmar;
+TextView cancelar;
+Button cancela;
+Context context;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,10 +50,34 @@ Button guardar;
         calendario = (Button) findViewById(R.id.button);
         horario = (TextView) findViewById(R.id.horario);
         reloj = (Button) findViewById(R.id.button2);
-        guardar = (Button) findViewById(R.id.guardabtn);
+        guardar = (Button) findViewById(R.id.guardabtn4);
+        confirmar = (TextView) findViewById(R.id.confirmacion);
+        cancelar = (TextView) findViewById(R.id.cancelacion);
+        cancela = (Button) findViewById(R.id.borrarbtn);
+        cancela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
+                dialogo1.setTitle("Importante");
+                dialogo1.setMessage("¿ Desea cancelar la carga del turno ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Toast.makeText(FormularioTurno.this, "Cancelado", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Toast.makeText(FormularioTurno.this, "cwanel;adop", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialogo1.show();
+            }
+        });
 
 
-
+//para solicitar los permisos de mensaje de texto
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
             } else {
@@ -111,7 +143,7 @@ Button guardar;
         }
 
 
-        String mensaje= formulario.getText().toString() + horario.getText().toString();
+     /*   String mensaje= formulario.getText().toString() + horario.getText().toString();
         sendSMS(mensaje);//al peluquero por sms
         Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
         startActivity(intento3); //con esto va a turno
@@ -130,7 +162,7 @@ Button guardar;
 
             startActivity(smsIntent);
             finish();
-
+*/
         }
 
 }

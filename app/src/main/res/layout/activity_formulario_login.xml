@@ -32,14 +32,15 @@
 
             <EditText
                 android:id="@+id/duenologin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Nombre y Apellido del dueño"
-                android:maxLength="30"
                 android:inputType="textPersonName"
+                android:maxLength="30"
                 android:textColorHint="#02A899" />
 
             <TextView
@@ -53,14 +54,15 @@
 
             <EditText
                 android:id="@+id/usuariologin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Usuario. Mínimo de 4 letras"
-                android:maxLength="10"
                 android:inputType="textPersonName"
+                android:maxLength="10"
                 android:textColorHint="#02A899" />
 
             <TextView
@@ -74,14 +76,15 @@
 
             <EditText
                 android:id="@+id/contrasenalogin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Contraseña: AAaa11() "
+                android:inputType="textPassword"
                 android:maxLength="10"
-                android:inputType="textPersonName"
                 android:textColorHint="#02A899" />
 
             <TextView
@@ -95,21 +98,23 @@
 
             <EditText
                 android:id="@+id/domiciliologin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="Domicilio. Calle. Numero y Departamento"
-                android:maxLength="30"
                 android:inputType="textPersonName"
+                android:maxLength="30"
                 android:textColorHighlight="#02A899"
                 android:textColorHint="#009688" />
 
             <EditText
                 android:id="@+id/localidadlogin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
@@ -120,8 +125,9 @@
 
             <EditText
                 android:id="@+id/celularlogin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
@@ -142,8 +148,9 @@
 
             <EditText
                 android:id="@+id/maillogin"
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
