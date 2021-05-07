@@ -4,12 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,8 +50,8 @@ Context context;
         horario = (TextView) findViewById(R.id.horario);
         reloj = (Button) findViewById(R.id.button2);
         guardar = (Button) findViewById(R.id.guardabtn4);
-        confirmar = (TextView) findViewById(R.id.confirmacion);
-        cancelar = (TextView) findViewById(R.id.cancelacion);
+        confirmar = (TextView) findViewById(R.id.confirm);
+        cancelar = (TextView) findViewById(R.id.cancel);
         cancela = (Button) findViewById(R.id.borrarbtn);
         cancela.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +63,17 @@ Context context;
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
                         Toast.makeText(FormularioTurno.this, "Cancelado", Toast.LENGTH_SHORT).show();
-                        finish();
+                        new CountDownTimer(2000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                cancelar.setVisibility(View.VISIBLE);
+                            }
+
+                            public void onFinish() {
+                                finish();
+                            }
+                        }.start();
+
+
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -127,28 +136,29 @@ Context context;
     }
 
     private void guardarTurno() {
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioTurno.this, "bd_perros", null, 1);
-        SQLiteDatabase db = conn.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("fecha", formulario.getText().toString());//el valor que se asigne se guarda en la bd
-        values.put("horario", horario.getText().toString());
-        values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog );
-        values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog );
-        Long idresultante = db.insert("turnos", "id", values);
-        try {   Toast.makeText(this, "Turno confirmado" + idresultante, Toast.LENGTH_LONG).show();//al usuario por app
+        new CountDownTimer(2000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        confirmar.setVisibility(View.VISIBLE);
+                    }
 
-        }catch (Exception e){
-            Toast.makeText(this, "El error es:" + e, Toast.LENGTH_LONG).show();//al usuario por app
-            System.out.println("////////////////////////////////////"+ e);
-        }
+                    public void onFinish() {
+                        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioTurno.this, "bd_perros", null, 1);
+                        SQLiteDatabase db = conn.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put("fecha", formulario.getText().toString());//el valor que se asigne se guarda en la bd
+                        values.put("horario", horario.getText().toString());
+                        values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog);
+                        values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog);
+                        Long idresultante = db.insert("turnos", "id", values);
 
+                        String mensaje= formulario.getText().toString() + horario.getText().toString();
+                       /* sendSMS(mensaje);//al peluquero por sms
+                        Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
+                        startActivity(intento3); //con esto va a turno*/
+                      finish();// cuando lo ejecuto en el celular tengo que sacar este finish
+                    }
+                }.start();
 
-     /*   String mensaje= formulario.getText().toString() + horario.getText().toString();
-        sendSMS(mensaje);//al peluquero por sms
-        Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
-        startActivity(intento3); //con esto va a turno
-
-        finish();
     }
     //para cuando pruebo con el celular
     protected void sendSMS( String mensaje) {
@@ -160,12 +170,13 @@ Context context;
         smsIntent.putExtra("sms_body"  , mensaje);
 
 
-            startActivity(smsIntent);
-            finish();
-*/
-        }
+        startActivity(smsIntent);
+        finish();
 
+    }
 }
+
+
 
 
 
