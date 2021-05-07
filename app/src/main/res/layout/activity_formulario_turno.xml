@@ -20,7 +20,7 @@
         android:text="TURNO CONFIRMADO"
         android:textColor="#F6FAF9"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -140,7 +140,7 @@
         android:text="TURNO CANCELADO"
         android:textColor="#F6FAF9"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
