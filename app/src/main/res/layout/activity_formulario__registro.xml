@@ -9,28 +9,22 @@
 
     <EditText
         android:id="@+id/kg"
-        android:layout_width="332dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="295dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:hint="Peso en kg"
         android:inputType="number"
         android:maxLength="3"
         android:textColor="#009688"
         android:textColorHint="#02A899"
-        app:layout_constraintBottom_toTopOf="@+id/guardarbtn"
+        app:layout_constraintBottom_toTopOf="@+id/errorpeso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/raza"
-        android:layout_width="332dp"
-        android:layout_height="43dp"
+        android:layout_width="295dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
@@ -38,8 +32,8 @@
         android:layout_marginBottom="25dp"
         android:ems="10"
         android:hint="Raza"
-        android:maxLength="30"
         android:inputType="textPersonName"
+        android:maxLength="30"
         android:textColor="#009688"
         android:textColorHint="#02A899"
         app:layout_constraintBottom_toTopOf="@+id/kg"
@@ -48,8 +42,8 @@
 
     <EditText
         android:id="@+id/name_masc"
-        android:layout_width="332dp"
-        android:layout_height="43dp"
+        android:layout_width="295dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
@@ -57,8 +51,8 @@
         android:layout_marginBottom="25dp"
         android:ems="10"
         android:hint="Nombre de la Mascota"
-        android:maxLength="10"
         android:inputType="textPersonName"
+        android:maxLength="10"
         android:textColor="#009688"
         android:textColorHint="#02A899"
         app:layout_constraintBottom_toTopOf="@+id/raza"
@@ -124,5 +118,17 @@
         app:layout_constraintBottom_toTopOf="@+id/name_masc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/errorpeso"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="El peso debe ser entre 1 y 110 kg"
+        android:textColor="#EF1B1B"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guardarbtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

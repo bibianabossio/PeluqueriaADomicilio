@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peluqueraadomicilio.Utilidades.Utilidades;
@@ -26,6 +27,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
+
+import static java.lang.Integer.parseInt;
 
 public class FormularioRegistro extends AppCompatActivity {
     //variables
@@ -41,6 +44,7 @@ public class FormularioRegistro extends AppCompatActivity {
     private Bitmap imgToStorage;//otra forma de almacenar las fotos.
     String direccionUriImg;//almacena la dire donde guardo la imagen
     String error;
+    TextView pesoerror;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//se relacionan las variables con los id
@@ -53,6 +57,7 @@ public class FormularioRegistro extends AppCompatActivity {
         fotoPerro = (ImageView) findViewById(R.id.foto_perro);
         galeria = (Button) findViewById(R.id.galeriabtn);
         camara = (Button) findViewById(R.id.camarabtn);
+        pesoerror=(TextView)findViewById(R.id.errorpeso);
 
         guardar.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
             @Override
@@ -60,10 +65,14 @@ public class FormularioRegistro extends AppCompatActivity {
                 if (validarMascota()){
                     guardarMascota();
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), " " + error,
-                            Snackbar.LENGTH_LONG)
-                            .setDuration(3000)
-                            .show();
+
+                    pesoerror.setVisibility(View.VISIBLE);
+                    pesoerror.setText(error);
+                   /*
+                   Snackbar.make(findViewById(android.R.id.content), " " + error,
+                           Snackbar.LENGTH_LONG)
+                           .setDuration(3000)
+                           .show();*/
 
 
                 }
@@ -93,8 +102,13 @@ public class FormularioRegistro extends AppCompatActivity {
         String kilo = kg.getText().toString();
 
         if (!name.equals("") && !raze.equals("") && !kilo.equals("")) {
-            return true;
-        } else {
+            if(parseInt(kilo)>0 && parseInt(kilo)<110){
+                return true;
+            } else{
+                error = "El peso debe ser entre 1 y 110kgs";
+                return false;
+            }
+        }else {
             error = "Completar todos los campos";
             return false;
         }
@@ -110,7 +124,7 @@ public class FormularioRegistro extends AppCompatActivity {
     }
 
 
-//funcion abrir camara para sacar las fotos
+    //funcion abrir camara para sacar las fotos
     public void AbrirCamara() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//abre la camara
         File imagenArchivo = null;
@@ -173,5 +187,6 @@ public class FormularioRegistro extends AppCompatActivity {
 
     }
 }
+
 
 

@@ -11,38 +11,35 @@
         android:id="@+id/confirm"
         android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="150dp"
         android:background="#009688"
         android:gravity="center"
         android:shadowColor="#F6FAF9"
         android:text="TURNO CONFIRMADO"
         android:textColor="#F6FAF9"
         android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/cancel"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/guardabtn4"
         android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="140dp"
         android:text="CONFIRMAR"
-        app:layout_constraintBottom_toTopOf="@+id/cancel"
-        app:layout_constraintEnd_toStartOf="@+id/borrarbtn"
-        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="390dp"
-        android:layout_height="43dp"
+        android:layout_height="40dp"
         android:layout_marginTop="40dp"
         android:text="         SELECCION DE TURNOS"
         android:textColor="#009688"
@@ -54,9 +51,9 @@
 
     <TextView
         android:id="@+id/formularioTurno"
-        android:layout_width="357dp"
+        android:layout_width="350dp"
         android:layout_height="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif"
         android:text="SELECCIONAR DIA"
         android:textColor="#009688"
@@ -69,9 +66,9 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="141dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
         android:onClick="abrirCalendario"
         android:text="CALENDARIO"
         android:textAllCaps="false"
@@ -83,7 +80,7 @@
         android:id="@+id/horario"
         android:layout_width="357dp"
         android:layout_height="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif"
         android:text="SELECCIONAR HORA"
         android:textColor="#009688"
@@ -94,60 +91,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
+
     <Button
         android:id="@+id/button2"
         android:layout_width="125dp"
         android:layout_height="73dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:onClick="abrirHora"
         android:text="HORARIO"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horario" />
-
 
     <Button
         android:id="@+id/borrarbtn"
         android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:text="CANCELAR"
-        app:layout_constraintBottom_toBottomOf="@+id/guardabtn4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guardabtn4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_width="140dp"
+        android:layout_height="124dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
         app:srcCompat="@drawable/pregunta" />
 
     <TextView
         android:id="@+id/cancel"
         android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="150dp"
         android:background="#8A0722"
         android:gravity="center"
         android:shadowColor="#F6FAF9"
         android:text="TURNO CANCELADO"
         android:textColor="#F6FAF9"
         android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/confirm"
-        app:layout_constraintVertical_bias="0.0" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
