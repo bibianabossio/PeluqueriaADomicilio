@@ -95,7 +95,7 @@ public class FormularioRegistro extends AppCompatActivity {
         String kilo = kg.getText().toString();
 
         if (!name.equals("") && !raze.equals("") && !kilo.equals("")) {
-            if(parseInt(kilo)>0 && parseInt(kilo)<110){
+            if(parseInt(kilo)>0 && parseInt(kilo)<111){
                 return true;
             } else{
                 error = "El peso debe ser entre 1 y 110kgs";
