@@ -150,6 +150,12 @@ Context context;
                         values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog);
                         values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog);
                         Long idresultante = db.insert("turnos", "id", values);
+                        if (idresultante>0){//si no lo llegó a guardar
+                            guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
+                        }
+                        else{
+                            guardar.setEnabled(true);
+                        }
 
                         String mensaje= formulario.getText().toString() + horario.getText().toString();
                        /* sendSMS(mensaje);//al peluquero por sms

@@ -226,7 +226,13 @@ public class FormularioLogin extends AppCompatActivity {
        values.put("domicilio", domicilio.getText().toString());
        values.put("localidad", localidad.getText().toString());
        values.put("celular", celular.getText().toString());
-       Long idresultante = db.insert("usuarios", "id", values);
+       Long idresultante = db.insert("usuarios", "id", values);//me tiene que devolver el id de la bd
+       if (idresultante>0){//si no lo llegó a guardar
+           guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
+       }
+       else{
+           guardar.setEnabled(true);
+       }
        Utilidades.usaurioLog = (Integer) idresultante.intValue();
        System.out.println("el valor de idresultante es:" + Utilidades.usaurioLog);
        Toast.makeText(this, "Usuario Ingresado" + idresultante, Toast.LENGTH_LONG).show();

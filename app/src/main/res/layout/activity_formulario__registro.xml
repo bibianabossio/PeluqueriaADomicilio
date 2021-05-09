@@ -12,7 +12,7 @@
         android:layout_width="295dp"
         android:layout_height="40dp"
         android:ems="10"
-        android:hint="Peso en kg"
+        android:hint="*Peso en kg"
         android:inputType="number"
         android:maxLength="3"
         android:textColor="#009688"
@@ -31,7 +31,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="25dp"
         android:ems="10"
-        android:hint="Raza"
+        android:hint="*Raza"
         android:inputType="textPersonName"
         android:maxLength="30"
         android:textColor="#009688"
@@ -50,7 +50,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="25dp"
         android:ems="10"
-        android:hint="Nombre de la Mascota"
+        android:hint="*Nombre de la Mascota"
         android:inputType="textPersonName"
         android:maxLength="10"
         android:textColor="#009688"
@@ -67,11 +67,12 @@
         android:layout_marginLeft="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="40dp"
         android:text="GUARDAR"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/obligatorio"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -131,4 +132,15 @@
         app:layout_constraintBottom_toTopOf="@+id/guardarbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/obligatorio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="(*) Campos obligatorios"
+        android:textColor="#7F0C93"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

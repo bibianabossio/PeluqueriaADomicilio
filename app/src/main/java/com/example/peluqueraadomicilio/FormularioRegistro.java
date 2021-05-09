@@ -169,6 +169,12 @@ public class FormularioRegistro extends AppCompatActivity {
         values.put("kg", kg.getText().toString());
         values.put ("foto", direccionUriImg);
         Long idresultante = db.insert("perros", "id", values);
+        if (idresultante>0){//si no lo llegó a guardar
+            guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
+        }
+        else{
+            guardar.setEnabled(true);
+        }
         Utilidades.perroLog = (Integer)idresultante.intValue();
         System.out.println("el valor de idresultante es:" + Utilidades.perroLog);
         Toast.makeText(this, "Mascota Ingresada" + idresultante, Toast.LENGTH_LONG).show();
