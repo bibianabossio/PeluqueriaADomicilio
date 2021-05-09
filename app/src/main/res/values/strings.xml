@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Peluquería a Domicilio</string>
+    <string name="confirmar">CONFIRMAR</string>
+    <string name="turno_confirmado">TURNO CONFIRMADO</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="turno_cancelado">TURNO CANCELADO</string>
+    <string name="seleccione_el_d_a">Seleccione el día</string>
+    <string name="seleccion_de_turnos">SELECCION DE TURNOS</string>
+    <string name="calendario">CALENDARIO</string>
+    <string name="horario">HORARIO</string>
+    <string name="seleccione_la_hora">Seleccione la hora</string>
+    <string name="todo">TODO</string>
 </resources>
