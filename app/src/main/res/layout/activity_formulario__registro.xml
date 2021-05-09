@@ -52,7 +52,7 @@
         android:ems="10"
         android:hint="*Nombre de la Mascota"
         android:inputType="textPersonName"
-        android:maxLength="10"
+        android:maxLength="20"
         android:textColor="#009688"
         android:textColorHint="#02A899"
         app:layout_constraintBottom_toTopOf="@+id/raza"
