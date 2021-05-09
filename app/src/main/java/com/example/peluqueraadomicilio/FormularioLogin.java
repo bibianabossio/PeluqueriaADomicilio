@@ -142,8 +142,6 @@ public class FormularioLogin extends AppCompatActivity {
         String usu = usuario.getText().toString();
         String contra = contrasena.getText().toString();
         String ml = mail.getText().toString();
-        String dom = domicilio.getText().toString();
-        String loc = localidad.getText().toString();
         String cel = celular.getText().toString();
         validarTotales();
 
@@ -221,7 +219,7 @@ public class FormularioLogin extends AppCompatActivity {
        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioLogin.this, "bd_perros", null, 1);
        SQLiteDatabase db = conn.getWritableDatabase();
        ContentValues values = new ContentValues();
-       values.put("usuario", usuario.getText().toString());//el valor que se asigne se guarda en la bd
+       values.put("usuario", usuario.getText().toString().toLowerCase());//el valor que se asigne se guarda en la bd en minuscula
        values.put("contrasena", contrasena.getText().toString());
        values.put("nombre_dueno", dueno.getText().toString());
        values.put("mail", mail.getText().toString());

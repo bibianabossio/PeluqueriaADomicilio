@@ -38,7 +38,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Nombre y Apellido del dueño"
+                android:hint="*Nombre y Apellido del dueño"
                 android:inputType="textPersonName"
                 android:maxLength="30"
                 android:textColorHint="#02A899" />
@@ -60,7 +60,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Usuario. Mínimo de 4 letras"
+                android:hint="*Usuario. Mínimo de 4 letras"
                 android:inputType="textPersonName"
                 android:maxLength="10"
                 android:textColorHint="#02A899" />
@@ -82,7 +82,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Contraseña: AAaa11() "
+                android:hint="*Contraseña: AAaa11() "
                 android:inputType="textPassword"
                 android:maxLength="10"
                 android:textColorHint="#02A899" />
@@ -131,7 +131,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Celular, debe contener un mínimo de 10 dígitos"
+                android:hint="*Celular, debe contener un mínimo de 10 dígitos"
                 android:inputType="number"
                 android:maxLength="15"
                 android:textColorHighlight="#02A899"
@@ -154,7 +154,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="Mail"
+                android:hint="*Mail"
                 android:inputType="textPersonName"
                 android:textColorHint="#02A899" />
 
@@ -177,6 +177,13 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="15dp"
                 android:text="GUARDAR" />
+
+            <TextView
+                android:id="@+id/mensaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(*) Campos Obligatorios"
+                android:textColor="#7F0C93" />
 
         </LinearLayout>
     </ScrollView>

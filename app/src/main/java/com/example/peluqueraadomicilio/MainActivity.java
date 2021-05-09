@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {//creo las variables
             @Override
             public void onClick(View v) {
                 //consulta a la base, comparar los datos de la base con lo cargado en el linea 21 y 22
-                String dueno = usuario.getText().toString();
+                String dueno = usuario.getText().toString().toLowerCase();
                 String pass = contrasena.getText().toString();
                 if (!dueno.equals("") && !pass.equals("")) {//compruebo que no este vacio y entro a la base de datos.
                     ConexionSQLiteHelper conn = new ConexionSQLiteHelper(MainActivity.this, "bd_perros", null, 1);
