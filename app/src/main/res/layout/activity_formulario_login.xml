@@ -38,7 +38,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="*Nombre y Apellido del dueño"
+                android:hint="*Nombre y Apellido del Dueño"
                 android:inputType="none|text"
                 android:maxLength="30"
                 android:textColorHint="#02A899" />

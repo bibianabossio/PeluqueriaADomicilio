@@ -208,7 +208,7 @@ public class FormularioLogin extends AppCompatActivity {
             errorUs.setVisibility(View.VISIBLE);
         }
         if (contra.equals("")){
-            errorCo.setText("La contrasenia no puede estar vacío");
+            errorCo.setText("La contraseña no puede estar vacío");
             errorCo.setVisibility(View.VISIBLE);
         }
         if (ml.equals("")){

@@ -42,6 +42,10 @@ public class FormularioTurno extends AppCompatActivity {
     TextView cancelar;
     Button cancela;
     Context context;
+    java.util.Date fechaSeleccionada;
+    java.util.Date fechaHoy;
+    Boolean errorFecha=false;
+    String fecha;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +104,16 @@ public class FormularioTurno extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(!formulario.getText().equals("") && !horario.getText().equals("")){
-                    guardarTurno();
+                    if(errorFecha==true){
+                        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
+                        dialogo1.setMessage("Seleccione una fecha correcta");
+                        dialogo1.setCancelable(true);
+                        dialogo1.show();
+
+                    }else {
+                        guardarTurno();
+                    }
+
                 }else{
                     AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
                     dialogo1.setTitle("Importante!");
@@ -121,33 +134,42 @@ public class FormularioTurno extends AppCompatActivity {
         int anio= cal.get(Calendar.YEAR);
         int mes= cal.get (Calendar.MONTH);
         int dia= cal.get (Calendar.DAY_OF_MONTH);
+        String fechaActual=dia + "-"+ (mes +1) + "-" + anio;//almaceno la fecha de hoy
 
-
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        fechaHoy = format.parse(fechaActual);
         DatePickerDialog dpd= new DatePickerDialog(FormularioTurno.this,
                 new DatePickerDialog.OnDateSetListener() {
-                    String fechaActual=dia + "-"+ (mes +1) + "-" + anio;//almaceno la fecha de hoy
-
-                    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-                    java.util.Date fechaHoy = format.parse(fechaActual);
-                    java.util.Date fechaSeleccionada;
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String fecha=dayOfMonth + "-"+ (month +1) + "-" + year;//fecha seleccionada por el usuario lo conv en string
+                        fecha=dayOfMonth + "-"+ (month +1) + "-" + year;//fecha seleccionada por el usuario lo conv en string
+
                         try {
                             fechaSeleccionada = format.parse(fecha);//convierto el string en fecha
+                            validarFecha();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         formulario.setText("Se reservo turno el día:"+ fecha);
-
                     }
-
-                },
-                anio,
-                mes,
-                dia);
+                },anio,mes,dia);
         dpd.show();
 
+    }
+    void validarFecha(){
+        if(fechaHoy.compareTo(fechaSeleccionada)>0){
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
+            dialogo1.setTitle("Importante!");
+            dialogo1.setMessage("No se puede seleccionar una fecha anterior a la actual");
+            dialogo1.setCancelable(true);
+            dialogo1.show();
+            errorFecha=true;
+
+        }else{
+            formulario.setText("Se reservo turno el día:"+ fecha);
+            errorFecha=false;
+        }
     }
 
     public void abrirHora(View view) {
@@ -189,9 +211,9 @@ public class FormularioTurno extends AppCompatActivity {
                 }
 
                 String mensaje= formulario.getText().toString() + horario.getText().toString();
-                      /* sendSMS(mensaje);//al peluquero por sms
-                       Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
-                       startActivity(intento3); //con esto va a turno*/
+                      sendSMS(mensaje);//al peluquero por sms
+                      Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
+                      startActivity(intento3); //con esto va a turno
                 finish();// cuando lo ejecuto en el celular tengo que sacar este finish
             }
         }.start();
@@ -214,6 +236,8 @@ public class FormularioTurno extends AppCompatActivity {
 
     }
 }
+
+
 
 
 
