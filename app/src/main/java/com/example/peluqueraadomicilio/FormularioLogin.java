@@ -241,7 +241,6 @@ public class FormularioLogin extends AppCompatActivity {
 
        finish();
 
-
    }
 
 
