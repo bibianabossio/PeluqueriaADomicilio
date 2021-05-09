@@ -41,16 +41,11 @@ public class FormularioTurno extends AppCompatActivity {
     TextView confirmar;
     TextView cancelar;
     Button cancela;
-    Context context;
     java.util.Date fechaSeleccionada;
     java.util.Date fechaHoy;
     Boolean errorFecha=false;
     String fecha;
 
-    java.util.Date horaSeleccionada;
-    java.util.Date horaAhora;
-    Boolean errorHora=false;
-    String hora1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,7 +104,7 @@ public class FormularioTurno extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(!formulario.getText().equals("") && !horario.getText().equals("")){
-                    if(errorFecha==true || errorHora==true){
+                    if(errorFecha==true){
                         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
                         dialogo1.setMessage("Seleccione datos correctamente");
                         dialogo1.setCancelable(true);
@@ -163,10 +158,10 @@ public class FormularioTurno extends AppCompatActivity {
 
     }
     void validarFecha(){
-        if(fechaHoy.compareTo(fechaSeleccionada)>0){
+        if(fechaHoy.compareTo(fechaSeleccionada)>=0){
             AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
             dialogo1.setTitle("Importante!");
-            dialogo1.setMessage("No se puede seleccionar una fecha anterior a la actual");
+            dialogo1.setMessage("Los turnos se asignan a partir del siguiente día");
             dialogo1.setCancelable(true);
             dialogo1.show();
             errorFecha=true;
@@ -183,22 +178,12 @@ public class FormularioTurno extends AppCompatActivity {
         int hora= c.get(Calendar.HOUR_OF_DAY);
         int min= c.get(Calendar.MINUTE);
 
-        String horaActual=(hora+1) + ":"+ min;//almaceno lahora de ahora
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        horaAhora = format.parse(horaActual);//captura la hora actual
 
         TimePickerDialog tmd= new TimePickerDialog(FormularioTurno.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 horario.setText("En el horario: "+hourOfDay + ":"+ minute);
-                hora1=hourOfDay+":"+minute;
-                try {
-                    horaSeleccionada = format.parse(hora1);//captura la hora seleccionada
-                    validarHora();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+
 
 
             }
@@ -206,20 +191,7 @@ public class FormularioTurno extends AppCompatActivity {
         tmd.show();
     }
 
-    void validarHora(){
-        if (horaSeleccionada.compareTo(horaAhora)>=1) {
-            errorHora=false;
-        }else{
-            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-            dialogo1.setTitle("Importante!");
-            dialogo1.setMessage("Debe seleccionar una hora posterior a la actual");
-            dialogo1.setCancelable(true);
-            dialogo1.show();
-            errorHora=true;
-        }
 
-
-    }
     private void guardarTurno() {
 
         new CountDownTimer(2000, 1000) {
