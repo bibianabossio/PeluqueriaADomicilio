@@ -31,15 +31,15 @@ import java.util.Calendar;
 
 
 public class FormularioTurno extends AppCompatActivity {
-TextView formulario;
-Button calendario;
-TextView horario;
-Button reloj;
-Button guardar;
-TextView confirmar;
-TextView cancelar;
-Button cancela;
-Context context;
+    TextView formulario;
+    Button calendario;
+    TextView horario;
+    Button reloj;
+    Button guardar;
+    TextView confirmar;
+    TextView cancelar;
+    Button cancela;
+    Context context;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ Context context;
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-                        Toast.makeText(FormularioTurno.this, "cwanel;adop", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FormularioTurno.this, "cancelado", Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialogo1.show();
@@ -97,8 +97,18 @@ Context context;
         }
         guardar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                guardarTurno();
+                if(!formulario.getText().equals("") && !horario.getText().equals("")){
+                    guardarTurno();
+                }else{
+                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
+                    dialogo1.setTitle("Importante!");
+                    dialogo1.setMessage("Para registrar un turno todos los campos deben estar completo");
+                    dialogo1.setCancelable(true);
+                    dialogo1.show();
+
+                }
             }
+
 
         });
     }
@@ -136,34 +146,37 @@ Context context;
     }
 
     private void guardarTurno() {
+
         new CountDownTimer(2000, 1000) {
-                    public void onTick(long millisUntilFinished) {
-                        confirmar.setVisibility(View.VISIBLE);
-                    }
+            public void onTick(long millisUntilFinished) {
+                confirmar.setVisibility(View.VISIBLE);
+            }
 
-                    public void onFinish() {
-                        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioTurno.this, "bd_perros", null, 1);
-                        SQLiteDatabase db = conn.getWritableDatabase();
-                        ContentValues values = new ContentValues();
-                        values.put("fecha", formulario.getText().toString());//el valor que se asigne se guarda en la bd
-                        values.put("horario", horario.getText().toString());
-                        values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog);
-                        values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog);
-                        Long idresultante = db.insert("turnos", "id", values);
-                        if (idresultante>0){//si no lo llegó a guardar
-                            guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
-                        }
-                        else{
-                            guardar.setEnabled(true);
-                        }
+            public void onFinish() {
+                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(FormularioTurno.this, "bd_perros", null, 1);
+                SQLiteDatabase db = conn.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("fecha", formulario.getText().toString());//el valor que se asigne se guarda en la bd
+                values.put("horario", horario.getText().toString());
+                values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog);
+                values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog);
+                Long idresultante = db.insert("turnos", "id", values);
+                if (idresultante>0){//si no lo llegó a guardar
+                    guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
+                }
+                else{
+                    guardar.setEnabled(true);
+                }
 
-                        String mensaje= formulario.getText().toString() + horario.getText().toString();
-                       /* sendSMS(mensaje);//al peluquero por sms
-                        Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
-                        startActivity(intento3); //con esto va a turno*/
-                      finish();// cuando lo ejecuto en el celular tengo que sacar este finish
-                    }
-                }.start();
+                String mensaje= formulario.getText().toString() + horario.getText().toString();
+                      /* sendSMS(mensaje);//al peluquero por sms
+                       Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
+                       startActivity(intento3); //con esto va a turno*/
+                finish();// cuando lo ejecuto en el celular tengo que sacar este finish
+            }
+        }.start();
+
+
 
     }
     //para cuando pruebo con el celular
@@ -181,6 +194,8 @@ Context context;
 
     }
 }
+
+
 
 
 

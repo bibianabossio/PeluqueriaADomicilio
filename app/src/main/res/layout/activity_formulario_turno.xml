@@ -5,6 +5,7 @@
     android:id="@+id/formularioTurnos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_anchorGravity="center"
     tools:context=".FormularioTurno">
 
     <TextView
@@ -26,8 +27,8 @@
 
     <Button
         android:id="@+id/guardabtn4"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="140dp"
@@ -38,77 +39,97 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="390dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="343dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
         android:text="         SELECCION DE TURNOS"
         android:textColor="#009688"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/formularioTurno"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/formularioTurno"
         android:layout_width="350dp"
         android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
         android:fontFamily="sans-serif"
-        android:text="SELECCIONAR DIA"
         android:textColor="#009688"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/horaLabel" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="60"
+        android:layout_marginLeft="60"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="60"
+        android:layout_marginRight="60"
         android:onClick="abrirCalendario"
         android:text="CALENDARIO"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/formularioTurno" />
+        app:layout_constraintTop_toBottomOf="@+id/horario" />
 
     <TextView
         android:id="@+id/horario"
-        android:layout_width="357dp"
+        android:layout_width="350dp"
         android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
         android:fontFamily="sans-serif"
-        android:text="SELECCIONAR HORA"
+        android:gravity="center"
         android:textColor="#009688"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
+        app:layout_constraintTop_toBottomOf="@+id/turnoLabel" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="125dp"
-        android:layout_height="73dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:onClick="abrirHora"
         android:text="HORARIO"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horario" />
+        app:layout_constraintTop_toBottomOf="@+id/formularioTurno" />
 
     <Button
         android:id="@+id/borrarbtn"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
@@ -143,6 +164,36 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/turnoLabel"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Seleccione el día"
+        android:textColor="#009688"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/horaLabel"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Seleccione la hora"
+        android:textColor="#009688"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

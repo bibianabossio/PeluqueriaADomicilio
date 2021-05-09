@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/solicitud_btn"
-        android:layout_width="195dp"
-        android:layout_height="89dp"
+        android:layout_width="240dp"
+        android:layout_height="114dp"
         android:layout_marginBottom="92dp"
         android:text="Solicitar Turno"
         android:textSize="18sp"
@@ -51,8 +51,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColorHighlight="#8B1B9E"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/mascotabtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

@@ -39,7 +39,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="*Nombre y Apellido del dueño"
-                android:inputType="textPersonName"
+                android:inputType="none|text"
                 android:maxLength="30"
                 android:textColorHint="#02A899" />
 

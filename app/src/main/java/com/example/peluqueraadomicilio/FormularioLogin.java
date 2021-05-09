@@ -35,6 +35,7 @@ public class FormularioLogin extends AppCompatActivity {
     TextView errorCe;
     Button guardar;
     String error;
+    TextView errorNo;
 
 
 
@@ -145,7 +146,7 @@ public class FormularioLogin extends AppCompatActivity {
         String cel = celular.getText().toString();
         validarTotales();
 
-        if (!duen.equals("")) {
+        if (!duen.equals("")&& validarNombre(duen)) {
             if (validarUsuario(usu)) {
                 if (!contra.equals("")&& validarContrasena(contra)) {
                     if (!ml.equals("")&& validarEmail(ml)) {
@@ -178,6 +179,19 @@ public class FormularioLogin extends AppCompatActivity {
         }
         return true;
     }
+
+
+
+    private boolean validarNombre (String nombre){//controla que la estructura de nombre tenga solo letras
+        Pattern pattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]*");
+        if (!nombre.matches(String.valueOf(pattern))){
+            errorDu.setText("Debe cargar Nombre y Apellido y solo se permiten letras");
+            errorDu.setVisibility(View.VISIBLE);
+
+        }
+        return nombre.matches(String.valueOf(pattern));
+    }
+
     public void validarTotales(){
         String duen = dueno.getText().toString();
         String usu = usuario.getText().toString();
