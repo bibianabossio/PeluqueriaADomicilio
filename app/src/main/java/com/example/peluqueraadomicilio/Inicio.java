@@ -28,15 +28,13 @@ public class Inicio extends AppCompatActivity {
 
         mascota.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
             public void onClick(View v) {
-                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(Inicio.this, "bd_perros", null, 1);
                 Intent intento1 = new Intent(Inicio.this, FormularioRegistro.class); // configuro para que vaya a la otra pantalla
                 startActivity(intento1);//con esto va al formulario registro
             }
         });
         solicitud.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(Inicio.this, "bd_turnos", null, 1);
-                Intent intento2 = new Intent(Inicio.this, FormularioTurno.class); // configuro para que vaya a la otra pantalla
+               Intent intento2 = new Intent(Inicio.this, FormularioTurno.class); // configuro para que vaya a la otra pantalla
                 startActivity(intento2);//con esto va a turno
 
             }

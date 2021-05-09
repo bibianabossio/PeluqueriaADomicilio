@@ -59,7 +59,7 @@ public class FormularioLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 limpiarCampos();
-                if (validacion()) {
+                if (validacion()) {//ejecuta la funcion validacion
                      guardar_login();
 
                 } else {
@@ -185,8 +185,6 @@ public class FormularioLogin extends AppCompatActivity {
         String usu = usuario.getText().toString();
         String contra = contrasena.getText().toString();
         String ml = mail.getText().toString();
-        String dom = domicilio.getText().toString();
-        String loc = localidad.getText().toString();
         String cel = celular.getText().toString();
         //aca consultamos con todos los campos no esten vacios
         if (duen.equals("")){
@@ -198,11 +196,11 @@ public class FormularioLogin extends AppCompatActivity {
             errorUs.setVisibility(View.VISIBLE);
         }
         if (contra.equals("")){
-            errorCo.setText("La contrasenia  no puede estar vacío");
+            errorCo.setText("La contrasenia no puede estar vacío");
             errorCo.setVisibility(View.VISIBLE);
         }
         if (ml.equals("")){
-            errorMa.setText("El campo mail  no puede estar vacío");
+            errorMa.setText("El campo mail no puede estar vacío");
             errorMa.setVisibility(View.VISIBLE);
         }
         if (cel.equals("")){
@@ -235,7 +233,7 @@ public class FormularioLogin extends AppCompatActivity {
        System.out.println("el valor de idresultante es:" + Utilidades.usaurioLog);
        Toast.makeText(this, "Usuario Ingresado" + idresultante, Toast.LENGTH_LONG).show();
        Intent intento2 = new Intent(FormularioLogin.this, FormularioRegistro.class); // configuro para que vaya a la otra pantalla
-       startActivity(intento2);//con esto va a turno
+       startActivity(intento2);//con esto va a form registro
 
        finish();
 

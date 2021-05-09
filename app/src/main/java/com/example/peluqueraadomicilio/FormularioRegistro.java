@@ -68,13 +68,6 @@ public class FormularioRegistro extends AppCompatActivity {
 
                     pesoerror.setVisibility(View.VISIBLE);
                     pesoerror.setText(error);
-                   /*
-                   Snackbar.make(findViewById(android.R.id.content), " " + error,
-                           Snackbar.LENGTH_LONG)
-                           .setDuration(3000)
-                           .show();*/
-
-
                 }
             }
 
@@ -118,7 +111,7 @@ public class FormularioRegistro extends AppCompatActivity {
     private void guardarGaleria() {
         Intent intento = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intento.setType("image/");
-        foto =10;
+        foto =10;//numero que se le asigna a la galeria
         startActivityForResult(Intent.createChooser(intento, "Seleccionar imagen ;)"), foto);
 
     }
@@ -129,22 +122,22 @@ public class FormularioRegistro extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//abre la camara
         File imagenArchivo = null;
         try {
-            imagenArchivo = CrearImagen();// intento asignar los datos de la foto
+            imagenArchivo = CrearImagen();// intento asignar los datos de la foto(nombre y donde se guarda)
         } catch (IOException ex) {
             Log.e("Error", ex.toString());// si no se genero el archivo por un error que me imprima
         }
         if (imagenArchivo != null) {//si tiene foto sacada, la guarda
             imagenUri = FileProvider.getUriForFile(this, "com.example.peluqueraadomicilio.fileprovider", imagenArchivo);
             foto =100;//numero que se asigna para la camara
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUri);//guarda la imagen y lo manda a la linea siguiente
             startActivityForResult(intent, foto);
 
         }
     }
-    //funcion crear imagen
+    //funcion crear imagen (nombre de la foto)
     private File CrearImagen() throws IOException {
         String nombreImagen = "Foto_";
-        File directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);// crea o guarda en la carpeta la foto
         File imagen = File.createTempFile(nombreImagen, ".jpg", directorio);//concatena el nombre de la foto, donde se guarda y el formato
         direccionUriImg = imagen.getAbsolutePath();//asignamos a la variable la direccion adonde esta la foto guardada
         return imagen;

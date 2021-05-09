@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.peluqueraadomicilio.ClasesTablas.Usuario;
 import com.example.peluqueraadomicilio.Utilidades.Utilidades;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {//creo las variables
     EditText usuario;
     EditText contrasena;
     Button inicio;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         usMain = (TextView) findViewById(R.id.usuMain);
         ConMain = (TextView) findViewById(R.id.contraMain);
 
-        //pido permisos de uso de camara
+        //pido permisos de uso de camara y el almacenamiento externo(base de datos)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA,
@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         limpiarCampos();
-                        ConMain.setText("Datos Incorrectos");
+                        ConMain.setText("Usuario inexistente");
                         ConMain.setVisibility(View.VISIBLE);
                     }
 
                 } else if (dueno.equals("") && pass.equals("")) {
                     usMain.setText("El campo Usuario no puede estar vacio");
                     usMain.setVisibility(View.VISIBLE);
-                    ConMain.setText("El campo Contrasenia no puede estar vacio");
+                    ConMain.setText("El campo Contraseña no puede estar vacio");
                     ConMain.setVisibility(View.VISIBLE);
 
                 }else if(dueno.equals("")){
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }else if(pass.equals("")){
                     limpiarCampos();
-                    ConMain.setText("El campo Contrasenia no puede estar vacio");
+                    ConMain.setText("El campo Contraseña no puede estar vacio");
                     ConMain.setVisibility(View.VISIBLE);
 
                 }

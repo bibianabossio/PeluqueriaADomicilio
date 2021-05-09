@@ -24,29 +24,8 @@ public class Usuario {
     public Usuario() {
 
     }
-/*    public boolean isNull(){
-        if(usuario.equals("")&&contrasena.equals("")&&nombre_dueno.equals("")&&mail.equals("")&&domicilio.equals("")&&localidad.equals("")&&celular.equals("")){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", usuario='" + usuario + '\'' +
-                ", contrasena=" + contrasena +
-                ", nombre_dueno='" + nombre_dueno + '\'' +
-                ", mail='" + mail + '\'' +
-                ", domicilio='" + domicilio + '\'' +
-                ", localidad='" + localidad + '\'' +
-                ", celular='" + celular + '\'' +
-                '}';
-    }
-*/
+
     public Integer getId() {
         return id;
     }
