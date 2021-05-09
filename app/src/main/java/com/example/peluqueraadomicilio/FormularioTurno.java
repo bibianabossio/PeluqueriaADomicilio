@@ -47,6 +47,13 @@ public class FormularioTurno extends AppCompatActivity {
     String fecha;
 
 
+
+    java.util.Date horaSeleccionada;
+    java.util.Date horaAhora;
+    Boolean errorHora=false;
+    String hora1;
+    boolean mismoDia=false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,7 @@ public class FormularioTurno extends AppCompatActivity {
         confirmar = (TextView) findViewById(R.id.confirm);
         cancelar = (TextView) findViewById(R.id.cancel);
         cancela = (Button) findViewById(R.id.borrarbtn);
+        reloj.setEnabled(false);
         cancela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +112,7 @@ public class FormularioTurno extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(!formulario.getText().equals("") && !horario.getText().equals("")){
-                    if(errorFecha==true){
+                    if(errorFecha==true || errorHora==true){
                         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
                         dialogo1.setMessage("Seleccione datos correctamente");
                         dialogo1.setCancelable(true);
@@ -151,7 +159,7 @@ public class FormularioTurno extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        formulario.setText("Se reservo turno el día:"+ fecha);
+
                     }
                 },anio,mes,dia);
         dpd.show();
@@ -165,10 +173,12 @@ public class FormularioTurno extends AppCompatActivity {
             dialogo1.setCancelable(true);
             dialogo1.show();
             errorFecha=true;
+            reloj.setEnabled(false);
 
         }else{
             formulario.setText("Se reservo turno el día:"+ fecha);
             errorFecha=false;
+            reloj.setEnabled(true);
         }
     }
 
@@ -178,17 +188,44 @@ public class FormularioTurno extends AppCompatActivity {
         int hora= c.get(Calendar.HOUR_OF_DAY);
         int min= c.get(Calendar.MINUTE);
 
+        String horaActual=(hora+1) + ":"+ min;//almaceno lahora de ahora
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        horaAhora = format.parse(horaActual);//captura la hora actual
 
         TimePickerDialog tmd= new TimePickerDialog(FormularioTurno.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                horario.setText("En el horario: "+hourOfDay + ":"+ minute);
-
-
-
+                horario.setText("Horario seleccionado: "+hourOfDay + ":"+ minute);
+                hora1=hourOfDay+":"+minute;
+                try {
+                    horaSeleccionada = format.parse(hora1);//captura la hora seleccionada
+                    validarHora();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }, hora, min,false);
         tmd.show();
+    }
+    void validarHora() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        java.util.Date horarioInicio=format.parse("09:00");
+        java.util.Date horarioFinal=format.parse("18:00");
+
+        if (horaSeleccionada.after(horarioInicio) && horaSeleccionada.before(horarioFinal)){
+            errorHora=false;
+        }else {
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
+            dialogo1.setTitle("Importante!");
+            dialogo1.setMessage("Debe seleccionar un horario de 09:00 a 18:00");
+            dialogo1.setCancelable(true);
+            dialogo1.show();
+            errorHora=true;
+        }
+
+
+
     }
 
 
@@ -241,6 +278,8 @@ public class FormularioTurno extends AppCompatActivity {
 
     }
 }
+
+
 
 
 
