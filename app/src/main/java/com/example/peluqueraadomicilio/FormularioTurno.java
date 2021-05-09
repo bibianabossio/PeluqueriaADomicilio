@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.example.peluqueraadomicilio.Utilidades.Utilidades;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -113,21 +115,39 @@ public class FormularioTurno extends AppCompatActivity {
         });
     }
 
-    public void abrirCalendario(View view) {
+    public void abrirCalendario(View view) throws ParseException {
+
         Calendar cal= Calendar.getInstance();
         int anio= cal.get(Calendar.YEAR);
         int mes= cal.get (Calendar.MONTH);
         int dia= cal.get (Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dpd= new DatePickerDialog(FormularioTurno.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String fecha=dayOfMonth + "/"+ (month +1) + "/" + year;
-                formulario.setText("Se reservo turno el día:"+ fecha);
 
-            }
-        }, anio, mes, dia);
+        DatePickerDialog dpd= new DatePickerDialog(FormularioTurno.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    String fechaActual=dia + "-"+ (mes +1) + "-" + anio;//almaceno la fecha de hoy
+
+                    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                    java.util.Date fechaHoy = format.parse(fechaActual);
+                    java.util.Date fechaSeleccionada;
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        String fecha=dayOfMonth + "-"+ (month +1) + "-" + year;//fecha seleccionada por el usuario lo conv en string
+                        try {
+                            fechaSeleccionada = format.parse(fecha);//convierto el string en fecha
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        formulario.setText("Se reservo turno el día:"+ fecha);
+
+                    }
+
+                },
+                anio,
+                mes,
+                dia);
         dpd.show();
+
     }
 
     public void abrirHora(View view) {

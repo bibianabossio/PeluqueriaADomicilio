@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/confirm"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="160dp"
         android:background="#009688"
         android:gravity="center"
         android:shadowColor="#F6FAF9"
@@ -64,6 +64,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:fontFamily="sans-serif"
+        android:gravity="center"
         android:textColor="#009688"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -75,7 +76,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="130dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginEnd="60dp"
@@ -109,7 +110,7 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="130dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginEnd="60dp"
@@ -126,12 +127,15 @@
         android:id="@+id/borrarbtn"
         android:layout_width="130dp"
         android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:text="@string/cancelar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guardabtn4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -147,11 +151,11 @@
 
     <TextView
         android:id="@+id/cancel"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="150dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginBottom="160dp"
         android:background="#8A0722"
         android:gravity="center"
         android:shadowColor="#F6FAF9"
