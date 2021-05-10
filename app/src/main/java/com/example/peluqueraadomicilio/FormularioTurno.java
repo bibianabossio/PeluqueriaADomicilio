@@ -114,7 +114,7 @@ public class FormularioTurno extends AppCompatActivity {
                 if(!formulario.getText().equals("") && !horario.getText().equals("")){
                     if(errorFecha==true || errorHora==true){
                         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-                        dialogo1.setMessage("Seleccione datos correctamente");
+                        dialogo1.setMessage("Seleccione datos correctos");
                         dialogo1.setCancelable(true);
                         dialogo1.show();
 
@@ -125,7 +125,7 @@ public class FormularioTurno extends AppCompatActivity {
                 }else{
                     AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
                     dialogo1.setTitle("Importante!");
-                    dialogo1.setMessage("Para registrar un turno todos los campos deben estar completo");
+                    dialogo1.setMessage("Para registrar un turno todos los campos deben estar completos");
                     dialogo1.setCancelable(true);
                     dialogo1.show();
 
