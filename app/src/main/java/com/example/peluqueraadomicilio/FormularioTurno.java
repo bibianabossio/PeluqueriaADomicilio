@@ -196,11 +196,13 @@ public class FormularioTurno extends AppCompatActivity {
         TimePickerDialog tmd= new TimePickerDialog(FormularioTurno.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                horario.setText("Horario seleccionado: "+hourOfDay + ":"+ minute);
+
                 hora1=hourOfDay+":"+minute;
                 try {
                     horaSeleccionada = format.parse(hora1);//captura la hora seleccionada
                     validarHora();
+                    hora1= format.format(horaSeleccionada);
+                    horario.setText("Horario seleccionado: "+ hora1);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -256,7 +258,7 @@ public class FormularioTurno extends AppCompatActivity {
                 sendSMS(mensaje);//al peluquero por sms
                 Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
                 startActivity(intento3); //con esto va a turno
-                finish();// cuando lo ejecuto en el celular tengo que sacar este finish
+               // finish();// cuando lo ejecuto en el celular tengo que sacar este finish
             }
         }.start();
 
@@ -267,11 +269,11 @@ public class FormularioTurno extends AppCompatActivity {
     protected void sendSMS( String mensaje) {
         Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 
-        smsIntent.setData(Uri.parse("smsto:"));
+        smsIntent.setData(Uri.parse("smsto:"));//deja preparado el mensaje para que lo envie
         smsIntent.setType("vnd.android-dir/mms-sms");
         smsIntent.putExtra("address"  , new String ("+5491135164255"));
         smsIntent.putExtra("sms_body"  , mensaje);
-
+        //tengo que encontrar como enviar el mensaje.
 
         startActivity(smsIntent);
         finish();
