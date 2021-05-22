@@ -89,17 +89,17 @@ public class FormularioTurno extends AppCompatActivity {
 
 
                     }
+
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
                         Toast.makeText(FormularioTurno.this, "cancelado", Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 dialogo1.show();
             }
         });
-
-
 //para solicitar los permisos de mensaje de texto
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
@@ -254,11 +254,11 @@ public class FormularioTurno extends AppCompatActivity {
                     guardar.setEnabled(true);
                 }
 
-                String mensaje= formulario.getText().toString() + horario.getText().toString();
+                String mensaje= formulario.getText().toString() +" "+ horario.getText().toString();
                 sendSMS(mensaje);//al peluquero por sms
-                Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
-                startActivity(intento3); //con esto va a turno
-               // finish();// cuando lo ejecuto en el celular tengo que sacar este finish
+                // Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
+                //startActivity(intento3); //con esto va a turno
+                // finish();// cuando lo ejecuto en el celular tengo que sacar este finish
             }
         }.start();
 
@@ -267,19 +267,33 @@ public class FormularioTurno extends AppCompatActivity {
     }
     //para cuando pruebo con el celular
     protected void sendSMS( String mensaje) {
-        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+//nueva forma de enviar mensaje con el share
+        Intent intentoObj=new Intent();
+        intentoObj.setAction(Intent.ACTION_SEND);
+        intentoObj.putExtra(Intent.EXTRA_TEXT,mensaje);
+        intentoObj.setType("text/plain");
+        Intent shareInt=Intent.createChooser(intentoObj,null);
+        startActivity(shareInt);
 
-        smsIntent.setData(Uri.parse("smsto:"));//deja preparado el mensaje para que lo envie
-        smsIntent.setType("vnd.android-dir/mms-sms");
-        smsIntent.putExtra("address"  , new String ("+5491135164255"));
-        smsIntent.putExtra("sms_body"  , mensaje);
-        //tengo que encontrar como enviar el mensaje.
+        ///antigua fornma de enviar mensaje
+       /*
+       Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 
-        startActivity(smsIntent);
-        finish();
+       smsIntent.setData(Uri.parse("smsto:"));//deja preparado el mensaje para que lo envie
+       smsIntent.setType("vnd.android-dir/mms-sms");
+       smsIntent.putExtra("address"  , new String ("+5491135164255"));
+       smsIntent.putExtra("sms_body"  , mensaje);
+       //tengo que encontrar como enviar el mensaje.
+
+       startActivity(smsIntent);
+
+        */
+        //finish();
 
     }
 }
+
+
 
 
 
