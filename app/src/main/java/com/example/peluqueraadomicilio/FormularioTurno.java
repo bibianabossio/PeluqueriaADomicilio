@@ -18,6 +18,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -113,21 +114,16 @@ public class FormularioTurno extends AppCompatActivity {
             public void onClick(View v) {
                 if(!formulario.getText().equals("") && !horario.getText().equals("")){
                     if(errorFecha==true || errorHora==true){
-                        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-                        dialogo1.setMessage("Seleccione datos correctos");
-                        dialogo1.setCancelable(true);
-                        dialogo1.show();
-
+                        String mensaje ="Seleccione datos correctos";
+                        tiempo(mensaje);
                     }else {
                         guardarTurno();
                     }
 
                 }else{
-                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-                    dialogo1.setTitle("Importante!");
-                    dialogo1.setMessage("Para registrar un turno todos los campos deben estar completos");
-                    dialogo1.setCancelable(true);
-                    dialogo1.show();
+                    String mensaje= "Para registrar un turno todos los campos deben estar completos";
+                    tiempo(mensaje);
+
 
                 }
             }
@@ -167,11 +163,8 @@ public class FormularioTurno extends AppCompatActivity {
     }
     void validarFecha(){
         if(fechaHoy.compareTo(fechaSeleccionada)>=0){
-            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-            dialogo1.setTitle("Importante!");
-            dialogo1.setMessage("Los turnos se asignan a partir del siguiente día");
-            dialogo1.setCancelable(true);
-            dialogo1.show();
+            String mensaje= "Los turnos se asignan a partir del siguiente día";
+           tiempo(mensaje);
             errorFecha=true;
             reloj.setEnabled(false);
 
@@ -218,11 +211,8 @@ public class FormularioTurno extends AppCompatActivity {
         if (horaSeleccionada.after(horarioInicio) && horaSeleccionada.before(horarioFinal)){
             errorHora=false;
         }else {
-            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(FormularioTurno.this);//lo creo
-            dialogo1.setTitle("Importante!");
-            dialogo1.setMessage("Debe seleccionar un horario de 09:00 a 18:00");
-            dialogo1.setCancelable(true);
-            dialogo1.show();
+            String mensaje= "Debe seleccionar un horario de 09:00 a 18:00";
+            tiempo(mensaje);
             errorHora=true;
         }
 
@@ -265,6 +255,25 @@ public class FormularioTurno extends AppCompatActivity {
 
 
     }
+
+    public void tiempo(String mensaje){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(FormularioTurno.this);
+        dialog.setCancelable(false);
+        dialog.setTitle("¡Atención!");
+        dialog.setMessage(mensaje);
+         final AlertDialog alert = dialog.create();
+        alert.show();  //Muestra dialogo.
+
+        //Crea handler, en 5  segundos cierra el dialogo.
+        new Handler().postDelayed(new Runnable(){
+            public void run(){
+                if (alert.isShowing()) {
+                    alert.dismiss();
+                }
+            }
+        }, 5000);
+    }
+
     //para cuando pruebo con el celular
     protected void sendSMS( String mensaje) {
 //nueva forma de enviar mensaje con el share
