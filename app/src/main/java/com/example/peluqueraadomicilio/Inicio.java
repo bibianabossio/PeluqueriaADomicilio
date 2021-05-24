@@ -12,6 +12,7 @@ public class Inicio extends AppCompatActivity {
     TextView validacion;
     Button mascota;
     Button solicitud;
+    Button salir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class Inicio extends AppCompatActivity {
         validacion = (TextView) findViewById(R.id.validacion); //relaciono los campos
         mascota = (Button) findViewById(R.id.mascotabtn);
         solicitud = (Button) findViewById(R.id.solicitud_btn);
+        salir = (Button) findViewById (R.id.salir);
 
         Intent intento = getIntent();
         validacion.setText(intento.getStringExtra("user")); //validacion de usuario y contraseña
@@ -37,6 +39,11 @@ public class Inicio extends AppCompatActivity {
                Intent intento2 = new Intent(Inicio.this, FormularioTurno.class); // configuro para que vaya a la otra pantalla
                 startActivity(intento2);//con esto va a turno
 
+            }
+        });
+        salir.setOnClickListener(new View.OnClickListener() {// espera cuando el usuario hace click
+            public void onClick(View v) {
+                finish();
             }
         });
 

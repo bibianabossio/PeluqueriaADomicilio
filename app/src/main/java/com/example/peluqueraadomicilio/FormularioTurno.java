@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -31,6 +32,7 @@ import com.example.peluqueraadomicilio.Utilidades.Utilidades;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class FormularioTurno extends AppCompatActivity {
@@ -54,6 +56,20 @@ public class FormularioTurno extends AppCompatActivity {
     Boolean errorHora=false;
     String hora1;
     boolean mismoDia=false;
+
+
+    //variables para guardar calendario
+    int anio=0;
+    int mes= 0;
+    int dia=0;
+
+    int anioSeleccionada=0;
+    int mesSeleccionada= 0;
+    int diaSeleccionada=0;
+
+    int horaParaCal=0;
+    int minParaCal=0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -135,9 +151,9 @@ public class FormularioTurno extends AppCompatActivity {
     public void abrirCalendario(View view) throws ParseException {
 
         Calendar cal= Calendar.getInstance();
-        int anio= cal.get(Calendar.YEAR);
-        int mes= cal.get (Calendar.MONTH);
-        int dia= cal.get (Calendar.DAY_OF_MONTH);
+        anio= cal.get(Calendar.YEAR);
+        mes= cal.get (Calendar.MONTH);
+        dia= cal.get (Calendar.DAY_OF_MONTH);
         String fechaActual=dia + "-"+ (mes +1) + "-" + anio;//almaceno la fecha de hoy
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -146,6 +162,9 @@ public class FormularioTurno extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        anioSeleccionada=year;
+                        mesSeleccionada=month;
+                        diaSeleccionada=dayOfMonth;
                         fecha=dayOfMonth + "-"+ (month +1) + "-" + year;//fecha seleccionada por el usuario lo conv en string
 
                         try {
@@ -164,7 +183,7 @@ public class FormularioTurno extends AppCompatActivity {
     void validarFecha(){
         if(fechaHoy.compareTo(fechaSeleccionada)>=0){
             String mensaje= "Los turnos se asignan a partir del siguiente día";
-           tiempo(mensaje);
+            tiempo(mensaje);
             errorFecha=true;
             reloj.setEnabled(false);
 
@@ -178,8 +197,10 @@ public class FormularioTurno extends AppCompatActivity {
     public void abrirHora(View view) throws ParseException {
 
         Calendar c= Calendar.getInstance();
+
         int hora= c.get(Calendar.HOUR_OF_DAY);
         int min= c.get(Calendar.MINUTE);
+
 
         String horaActual=(hora+1) + ":"+ min;//almaceno lahora de ahora
 
@@ -189,7 +210,8 @@ public class FormularioTurno extends AppCompatActivity {
         TimePickerDialog tmd= new TimePickerDialog(FormularioTurno.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+                horaParaCal=hourOfDay;
+                minParaCal=minute;
                 hora1=hourOfDay+":"+minute;
                 try {
                     horaSeleccionada = format.parse(hora1);//captura la hora seleccionada
@@ -215,9 +237,6 @@ public class FormularioTurno extends AppCompatActivity {
             tiempo(mensaje);
             errorHora=true;
         }
-
-
-
     }
 
 
@@ -237,18 +256,22 @@ public class FormularioTurno extends AppCompatActivity {
                 values.put(Utilidades.CAMPO_ID_DE_PERRO, Utilidades.perroLog);
                 values.put(Utilidades.CAMPO_DUENO_ID, Utilidades.usaurioLog);
                 Long idresultante = db.insert("turnos", "id", values);
+
+                agregarEventoCalendario();
+
                 if (idresultante>0){//si no lo llegó a guardar
                     guardar.setEnabled(false);//deshabilito para que no lo vuelva a poner
                 }
                 else{
                     guardar.setEnabled(true);
                 }
+               // finish();
 
                 String mensaje= formulario.getText().toString() +" "+ horario.getText().toString();
                 sendSMS(mensaje);//al peluquero por sms
                 // Intent intento3 = new Intent(FormularioTurno.this, Inicio.class); // configuro para que vaya a la otra pantalla
                 //startActivity(intento3); //con esto va a turno
-                // finish();// cuando lo ejecuto en el celular tengo que sacar este finish
+                 finish();// cuando lo ejecuto en el celular tengo que sacar este finish
             }
         }.start();
 
@@ -261,7 +284,7 @@ public class FormularioTurno extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setTitle("¡Atención!");
         dialog.setMessage(mensaje);
-         final AlertDialog alert = dialog.create();
+        final AlertDialog alert = dialog.create();
         alert.show();  //Muestra dialogo.
 
         //Crea handler, en 5  segundos cierra el dialogo.
@@ -272,6 +295,28 @@ public class FormularioTurno extends AppCompatActivity {
                 }
             }
         }, 5000);
+    }
+
+    public void agregarEventoCalendario(){
+        Intent calIntent = new Intent(Intent.ACTION_INSERT);//crea intento de insertar
+        calIntent.setType("vnd.android.cursor.item/event");
+        calIntent.putExtra(CalendarContract.Events.TITLE, "Turno Peluqueria Canina");
+        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Local Av Santa Fe 1212");
+        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "El turno se encuentra reservado , favor de ser puntual");
+
+        Calendar horaInicio = Calendar.getInstance();//obtengo la instancia
+        horaInicio.set(anioSeleccionada, mesSeleccionada, diaSeleccionada,horaParaCal,minParaCal);//creo variable del turno
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);//aclara que el evento no del dia entero
+
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, horaInicio.getTimeInMillis());//inserto los datos en el calendario
+
+        Calendar horaFin = Calendar.getInstance();//genero la hora del fin del turno
+        horaFin.set(anioSeleccionada, mesSeleccionada, diaSeleccionada,horaParaCal+1,minParaCal);//asumo que el turno es de 1 hora
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,horaFin.getTimeInMillis());
+
+        calIntent.putExtra(Intent.EXTRA_EMAIL, "rolon2702@gmail.com");//dueña de la peluqueria para que le llegue mail
+        startActivity(calIntent);
+
     }
 
     //para cuando pruebo con el celular
@@ -285,22 +330,24 @@ public class FormularioTurno extends AppCompatActivity {
         startActivity(shareInt);
 
         ///antigua fornma de enviar mensaje
-       /*
-       Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+      /*
+      Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 
-       smsIntent.setData(Uri.parse("smsto:"));//deja preparado el mensaje para que lo envie
-       smsIntent.setType("vnd.android-dir/mms-sms");
-       smsIntent.putExtra("address"  , new String ("+5491135164255"));
-       smsIntent.putExtra("sms_body"  , mensaje);
-       //tengo que encontrar como enviar el mensaje.
+      smsIntent.setData(Uri.parse("smsto:"));//deja preparado el mensaje para que lo envie
+      smsIntent.setType("vnd.android-dir/mms-sms");
+      smsIntent.putExtra("address"  , new String ("+5491135164255"));
+      smsIntent.putExtra("sms_body"  , mensaje);
+      //tengo que encontrar como enviar el mensaje.
 
-       startActivity(smsIntent);
+      startActivity(smsIntent);
 
-        */
+       */
         //finish();
 
     }
 }
+
+
 
 
 
