@@ -183,7 +183,7 @@ public class FormularioLogin extends AppCompatActivity {
 
 
     private boolean validarNombre (String nombre){//controla que la estructura de nombre tenga solo letras
-        Pattern pattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]*");
+        Pattern pattern = Pattern.compile("[a-zA-Z-ZñÑáéíóúÁÉÍÓÚ]+\\s[a-zA-Z-ZñÑáéíóúÁÉÍÓÚ\\s]+");
         if (!nombre.matches(String.valueOf(pattern))){
             errorDu.setText("Debe cargar Nombre y Apellido y solo se permiten letras");
             errorDu.setVisibility(View.VISIBLE);

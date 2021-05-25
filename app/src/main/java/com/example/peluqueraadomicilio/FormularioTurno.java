@@ -287,14 +287,14 @@ public class FormularioTurno extends AppCompatActivity {
         final AlertDialog alert = dialog.create();
         alert.show();  //Muestra dialogo.
 
-        //Crea handler, en 5  segundos cierra el dialogo.
+        //Crea handler, en 4  segundos cierra el dialogo.
         new Handler().postDelayed(new Runnable(){
             public void run(){
                 if (alert.isShowing()) {
                     alert.dismiss();
                 }
             }
-        }, 5000);
+        }, 4000);
     }
 
     public void agregarEventoCalendario(){
