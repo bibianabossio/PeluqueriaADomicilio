@@ -249,7 +249,7 @@ public class FormularioLogin extends AppCompatActivity {
        }
        Utilidades.usaurioLog = (Integer) idresultante.intValue();
        System.out.println("el valor de idresultante es:" + Utilidades.usaurioLog);
-       Toast.makeText(this, "Usuario Ingresado" + idresultante, Toast.LENGTH_LONG).show();
+       Toast.makeText(this, "Usuario Ingresado", Toast.LENGTH_LONG).show();
        Intent intento2 = new Intent(FormularioLogin.this, FormularioRegistro.class); // configuro para que vaya a la otra pantalla
        startActivity(intento2);//con esto va a form registro
 

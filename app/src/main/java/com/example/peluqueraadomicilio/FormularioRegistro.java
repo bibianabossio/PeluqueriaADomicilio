@@ -177,7 +177,7 @@ public class FormularioRegistro extends AppCompatActivity {
         }
         Utilidades.perroLog = (Integer)idresultante.intValue();
         System.out.println("el valor de idresultante es:" + Utilidades.perroLog);
-        Toast.makeText(this, "Mascota Ingresada" + idresultante, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Mascota Ingresada", Toast.LENGTH_LONG).show();
         Intent intento3 = new Intent(FormularioRegistro.this, FormularioTurno.class); // configuro para que vaya a la otra pantalla
         startActivity(intento3); //con esto va a turno
         finish();
