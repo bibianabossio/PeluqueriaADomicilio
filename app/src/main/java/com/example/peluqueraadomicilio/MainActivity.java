@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {//creo las variables
                             startActivity(intento);
                         } else {
                             limpiarCampos();
-                            ConMain.setText("ERROR: La contraseña no es valida:\\nDebe contener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 numero y 1 signo");
+                            ConMain.setText("ERROR: La contraseña no es valida:\nDebe contener al menos: 6 caracteres, 1 minúscula, 1 mayúscula, 1 numero y 1 signo");
                             ConMain.setVisibility(View.VISIBLE);
 
                         }
